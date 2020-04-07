@@ -1,0 +1,5 @@
+@media print {
+  html,body {
+    display: none; /* This code will hide whole pages */
+  }
+}

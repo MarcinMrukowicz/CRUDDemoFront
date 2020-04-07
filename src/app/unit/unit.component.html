@@ -1,0 +1,25 @@
+<h1>Unit</h1>
+<button (click)="addUnit()">add</button>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">name</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let unit of units; index as i">
+    <th scope="row">{{ i + 1 }}</th>
+    <td>
+      <input [(ngModel)]="unit.name" [disabled]="disabled[i]">
+    </td>
+    <td>
+      <button (click)="makeEnabled(i)" *ngIf="disabled[i]">edit</button>
+      <button (click)="save(i)" *ngIf="!disabled[i]">save</button>
+    </td>
+    <td>
+      <button (click)="delete(i)" [disabled]="!disabled[i]">usuń</button>
+    </td>
+  </tr>
+  </tbody>
+</table>
