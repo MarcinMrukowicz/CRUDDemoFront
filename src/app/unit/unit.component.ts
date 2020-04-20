@@ -9,14 +9,19 @@ import {UnitService} from '../unit.service';
 export class UnitComponent implements OnInit {
   units: object[] = [];
   disabled: boolean[] = [];
+  newUnit = {name: ''};
   constructor(private unitService: UnitService) { }
 
   ngOnInit() {
     this.getAllUnits();
   }
   addUnit() {
-    this.units.unshift({name: '', address: ''});
-    this.disabled.unshift(false);
+    this.unitService.addUnit(this.newUnit).subscribe((success) => {
+      console.log('Sukces');
+      this.getAllUnits();
+    }, (error) => {
+      console.log('Error');
+    });
   }
   getAllUnits() {
     this.unitService.getAll().subscribe((result: object[]) => {
@@ -31,12 +36,21 @@ export class UnitComponent implements OnInit {
 
   save(id) {
     this.disabled[id] = true;
+    this.unitService.updateUnit(this.units[id]).subscribe((success) => {
+        console.log('Sukces');
+        this.getAllUnits();
+      }, (error => {
+        console.log('Error');
+      }));
   }
   delete(id) {
-    return this.unitService.delete(this.units[id]);
+    console.log(this.units[id]);
+    this.unitService.delete(this.units[id]).subscribe((success) => {
+        this.units.splice(id, 1);
+      },
+      (error) => {
+      console.log('Błąds');
+      });
   }
-  addContractor() {
-    this.units.unshift({name: '', address: ''});
-    this.disabled.unshift(false);
-  }
+
 }

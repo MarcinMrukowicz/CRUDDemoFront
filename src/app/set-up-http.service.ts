@@ -24,6 +24,6 @@ export class SetUpHTTPService {
   }
   delete(url, body) {
     url = this.makeFullUrl(url);
-    return this.httpClient.get(url, body);
+    return this.httpClient.request('delete', url, {body});
   }
 }

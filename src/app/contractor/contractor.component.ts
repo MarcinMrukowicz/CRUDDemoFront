@@ -9,6 +9,7 @@ import {ContractorService} from '../contractor.service';
 export class ContractorComponent implements OnInit {
   contractors: object[] = [];
   disabled: boolean[] = [];
+  newContractor = {name: '', address: ''};
   constructor(private contractorService: ContractorService) { }
 
   ngOnInit() {
@@ -33,7 +34,6 @@ export class ContractorComponent implements OnInit {
     return this.contractorService.deleteContractor(this.contractors[id]);
   }
   addContractor() {
-    this.contractors.unshift({name: '', address: ''});
-    this.disabled.unshift(false);
+
   }
 }

@@ -1,31 +1,44 @@
 <h1>Item</h1>
-<button (click)="addItem()">add</button>
+<div class="form-group">
+  <label>name:</label>
+  <input [(ngModel)]="newItem.name" class="form-control" />
+</div>
+<div class="form-group">
+  <label>unit:</label>
+  <select [(ngModel)]="newItem.unit" class="form-control">
+    <option [ngValue]="u" *ngFor="let u of units">{{u.name}}</option>
+  </select>
+</div>
+<button (click)="addItem()" class="btn btn-secondary">add</button>
+
 <table class="table table-striped">
   <thead>
   <tr>
     <th scope="col">#</th>
     <th scope="col">name</th>
     <th scope="col">unit</th>
+    <th></th>
+    <th></th>
   </tr>
   </thead>
   <tbody>
   <tr *ngFor="let item of items; index as i">
     <th scope="row">{{ i + 1 }}</th>
     <td>
-      <input [(ngModel)]="item.name" [disabled]="disabled[i]">
+      <input [(ngModel)]="item.name" [disabled]="disabled[i]" class="form-control">
     </td>
     <td>
-      <select [(ngModel)]="item.unit" [disabled]="disabled[i]" (ngModelChange)="foo(item)">
+      <select [(ngModel)]="item.unit" [disabled]="disabled[i]" class="form-control">
         <option [ngValue]="u" *ngFor="let u of units">{{u.name}}</option>
       </select>
 
     </td>
     <td>
-      <button (click)="makeEnabled(i)" *ngIf="disabled[i]">edit</button>
-      <button (click)="save(i)" *ngIf="!disabled[i]">save</button>
+      <button (click)="makeEnabled(i)" class="btn btn-secondary" *ngIf="disabled[i]">edit</button>
+      <button (click)="save(i)" *ngIf="!disabled[i]" class="btn btn-primary">save</button>
     </td>
     <td>
-      <button (click)="delete(i)" [disabled]="!disabled[i]">usuń</button>
+      <button (click)="delete(i)" [disabled]="!disabled[i]" class="btn btn-danger">usuń</button>
     </td>
   </tr>
   </tbody>

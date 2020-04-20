@@ -13,13 +13,11 @@ export class ItemComponent implements OnInit, OnDestroy  {
   units: object[] = [];
   items: object[] = [];
   disabled: boolean[] = [];
+  newItem = {name: '', unit: null};
   constructor(private itemService: ItemService, private unitService: UnitService) { }
 
   ngOnInit() {
     this.getAllUnits();
-  }
-  foo(a) {
-    console.log(a);
   }
   getAllItems() {
     // @ts-ignore
@@ -43,7 +41,7 @@ export class ItemComponent implements OnInit, OnDestroy  {
     this.subscriptions.add(
     this.unitService.getAll().subscribe((result: object[]) => {
       this.units = result;
-
+      this.newItem.unit = result[0];
       this.getAllItems();
     }, (error) => {}));
   }
@@ -54,13 +52,29 @@ export class ItemComponent implements OnInit, OnDestroy  {
 
   save(id) {
     this.disabled[id] = true;
+
+    this.itemService.updateItem(this.items[id]).subscribe((success) => {
+      console.log('Sukces');
+      this.getAllItems();
+    }, (error => {
+      console.log('Error');
+    }));
   }
   delete(id) {
-    return this.itemService.delete(this.units[id]);
+    this.itemService.delete(this.items[id]).subscribe((next) => {
+      console.log('Sukces');
+      this.getAllUnits();
+    }, (error) => {
+      console.log('Error');
+    });
   }
   addItem() {
-    this.items.unshift({name: 'abc', unit: this.units[0]});
-    this.disabled.unshift(false);
+    this.itemService.addItem(this.newItem).subscribe((success) => {
+      console.log('Sukces');
+      this.getAllItems();
+    }, (error) => {
+      console.log('Error');
+    });
   }
   ngOnDestroy() {
    this.subscriptions.unsubscribe();

@@ -10,7 +10,13 @@ export class UnitService {
   getAll() {
     return this.httpClient.get('api/unit');
   }
-  delete(contractor) {
-    return this.httpClient.delete('api/unit', contractor);
+  delete(unit) {
+    return this.httpClient.delete('api/unit', unit);
+  }
+  addUnit(unit) {
+    return this.httpClient.post('api/unit', unit);
+  }
+  updateUnit(unit) {
+    return this.httpClient.put('api/unit', unit);
   }
 }

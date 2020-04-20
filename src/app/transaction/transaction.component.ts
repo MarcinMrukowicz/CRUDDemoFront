@@ -6,7 +6,6 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./transaction.component.css']
 })
 export class TransactionComponent implements OnInit {
-  hide = false;
   constructor() { }
 
   ngOnInit() {
